@@ -1,0 +1,27 @@
+http request is like -
+
+1)  request:
+        request line
+        headers
+        optional message body
+        
+2)   request-line:
+        Method SP Request-URL SP HTTP-Version CRLF
+        eg:-  GET/path/to/file/index.html HTTP/1.0
+
+
+http response is like -
+
+1) response:
+        status line
+        headers
+        optional message body
+
+2)  status-line:
+        HTTP-Version SP Reason-Phrase CRLF
+        eg:-  HTTP/1.0 200 OK
+        
+
+HTTP runs on top of tcp
+
+To create a http server which response to http request we need to write a server which responds to tcp request

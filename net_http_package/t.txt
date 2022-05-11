@@ -1,0 +1,22 @@
+type Handler interface{
+    SeverHTTP(ResponseWriter, *Request)
+}
+
+Request is of type struct which has fields like url , method , header , form , postform etc. 
+
+
+any type which has the above method i.e. (ServerHTTP) is also of type Handler
+
+ResponseWriter is an interface that has Header(), Write() and WriteHeader() methods
+
+header returns as map[string][]string
+
+A Handler responds to an http request
+
+
+form is for values from form and url
+
+post form is just from the form
+
+before using form or post form se parseform to get the values
+

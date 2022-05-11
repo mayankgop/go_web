@@ -1,0 +1,33 @@
+type Handler interface{
+    SeverHTTP(ResponseWriter, *Request)
+}
+
+Request is of type struct which has fields like url , method , header , form , postform etc. 
+
+
+any type which has the above method i.e. (ServerHTTP) is also of type Handler
+
+
+
+type ServeMux
+	func NewServeMux() *ServeMux
+	
+	func (mux *ServeMux) Handle(pattern string, h Handler)
+	func (mux *ServeMux) HandleFunc(pattern string, h func(ResponseWriter, *Request))
+	func (mux *ServeMux) Handler(r *Request) (h Handler, pattern string)
+	func (mux *ServeMux) ServeHTTP(w ResponseWriter, r *Request)
+    
+    type HandlerFunc func(ResponseWriter, *Request)
+
+
+
+
+ServeMux is a HTTP request multiplexer. 
+It matches the url of each incoming rquest against a list of registerd patterns 
+and calls the handler for the pattern that most closely matches the url
+
+whenever we have a pointer to a ServeMux we can implement handler interface
+
+function NewServeMux() gives return type as *ServeMux
+
+

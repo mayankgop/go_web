@@ -1,0 +1,31 @@
+we can pass data to server through url or through body
+
+when we submit a form we use either post or get method
+
+post sends form data to server through body
+get sends form data to server through url
+
+
+we can retrieve values using function :-----------
+func(r *Request)FormValue(key string) string
+
+FormValue returns the first  value for the named component of the query
+if key ius not present then form value returns the empty string
+
+when we make post request we have to encode the data that forms the body of request
+
+html provides three methods of encoding:
+1)application/x-www-form-urlencoded  (default way)
+2)multipart/form-data
+3)text/plain
+
+
+redirect allows us to redirect a request from one locaton to another
+redirects mean-
+So client makes a request server and then that request is for a certain resource and then 
+the server just redirects the client to another location.
+
+status code-
+http 301 : it permanently changes the location
+http 303 : it asks the client to see other location and always chane the method to get
+http 307 : it temporarily redirects and does not change the type of the method
