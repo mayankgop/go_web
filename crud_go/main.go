@@ -21,19 +21,18 @@ func init() {
 }
 func main() {
 
-
 	var i int
-	
-	for{
-	fmt.Println("(1)  create table  ")
-	fmt.Println("(2)  create row  ")
-	fmt.Println("(3)  delete   ")
-	fmt.Println("(4)  read   ")
-	fmt.Println("(5)  update")
-	fmt.Println("(6)  exit")
-	
+
+	for {
+		fmt.Println("(1)  create table  ")
+		fmt.Println("(2)  create row  ")
+		fmt.Println("(3)  delete   ")
+		fmt.Println("(4)  read   ")
+		fmt.Println("(5)  update")
+		fmt.Println("(6)  exit")
+
 		fmt.Println("enter the number to perform operation")
-		fmt.Scanf("%d",&i)
+		fmt.Scanf("%d", &i)
 		switch i {
 		case 1:
 			createt()
@@ -47,18 +46,17 @@ func main() {
 			update()
 		case 6:
 			return
-		
+
 		}
 	}
 
 }
 
-
 func create() {
 	var id int
 	var n string
 	fmt.Println("enter id and name to create")
-	fmt.Scanf("%d %s",&id,&n)
+	fmt.Scanf("%d %s", &id, &n)
 	query := fmt.Sprintf("insert into books values(%d,'%s')", id, n)
 	stmt, err := db.Prepare(query)
 
@@ -75,29 +73,29 @@ func create() {
 		return
 	}
 
-	num,err:=r.RowsAffected()
+	num, err := r.RowsAffected()
 	if err != nil {
 		fmt.Println("id already exists")
 		return
 	}
 
-	fmt.Println("number of rows affected are",num)
+	fmt.Println("number of rows affected are", num)
 	fmt.Println()
 	fmt.Println()
 }
 
-func del(){
+func del() {
 	var id int
 	fmt.Println("enter id to delete")
-	fmt.Scanf("%d",&id)
-    del,_:=db.Query("delete from books where id=?",id)
+	fmt.Scanf("%d", &id)
+	del, _ := db.Query("delete from books where id=?", id)
 	defer del.Close()
 	fmt.Println()
 	fmt.Println()
 
 }
 
-func read(){
+func read() {
 	x, _ := db.Query("select * from books")
 	for x.Next() {
 		var (
@@ -114,37 +112,35 @@ func read(){
 
 }
 
-func update(){
+func update() {
 	var id int
 	var n string
 	fmt.Println("enter id to update its name")
-	fmt.Scanf("%d",&id)
+	fmt.Scanf("%d", &id)
 	fmt.Println("enter new name")
-	fmt.Scanf("%s",&n)
-	query := fmt.Sprintf("update books set bookname='%s' where id=%d ",n,id)
+	fmt.Scanf("%s", &n)
+	query := fmt.Sprintf("update books set bookname='%s' where id=%d ", n, id)
 	// stmt, _ := db.Prepare(query)   no need to prepare
 	_, err = db.Exec(query)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-
-	
 	fmt.Println()
 	fmt.Println()
 
-// 	UPDATE Customers
-// SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
-// WHERE CustomerID = 1;
+	// 	UPDATE Customers
+	// SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
+	// WHERE CustomerID = 1;
 
 }
-func createt(){
+func createt() {
 	query := `CREATE table books(
 		id int ,
 		bookname varchar(20),
 		primary key(id)
 		)`
-	_,err:=db.Exec(query)
+	_, err := db.Exec(query)
 	if err != nil {
 		fmt.Println(err)
 	}
